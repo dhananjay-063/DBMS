@@ -1,0 +1,271 @@
+[sudo] password for student: 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.36-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database ss68;
+Query OK, 1 row affected (0.12 sec)
+
+mysql> use ss68;
+Database changed
+mysql> create table product(id int,name varchar(30),supplier_name varchar(30),unit_prize int);
+Query OK, 0 rows affected (0.62 sec)
+
+mysql> create table productprice_history(id int,name varchar(30),supplier_name varchar(30),unit_prize int);
+Query OK, 0 rows affected (1.55 sec)
+
+mysql> insert into product values('1','XYZ','ABC','250');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> delimiter //
+mysql>  create trigger price_trigger 
+    ->      before update on product
+    ->     for each row
+    ->      begin
+    ->      insert into productprice_history(id,name,supplier_name,unit_prize) values( old.id,old.name,old.supplier_name,old.unit_prize);
+    ->     end
+    ->     //
+Query OK, 0 rows affected (0.22 sec)
+
+mysql> update product set unit_prize ='350' where id ='1';
+    -> //
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from product;
+    -> //
++------+------+---------------+------------+
+| id   | name | supplier_name | unit_prize |
++------+------+---------------+------------+
+|    1 | XYZ  | ABC           |        350 |
++------+------+---------------+------------+
+1 row in set (0.00 sec)
+
+mysql> select * from productprice_history;
+    -> //
++------+------+---------------+------------+
+| id   | name | supplier_name | unit_prize |
++------+------+---------------+------------+
+|    1 | XYZ  | ABC           |        250 |
++------+------+---------------+------------+
+1 row in set (0.00 sec)
+
+mysql> ^C         
+
+^C
+mysql> //
+ERROR: 
+No query specified
+
+mysql> mysql>  create trigger price_trigger 
+    ->     ->      after update on product
+    ->     ->     for each row
+    ->     ->      begin
+    ->     ->      insert into productprice_history(id,name,supplier_name,unit_prize) values( id,name,supplier_name,unit_prize);
+    ->     ->     end
+    ->     ->     //
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql>  create trigger price_trigger 
+    ->      after update on product
+    ->' at line 1
+mysql> delimiter //
+mysql> >  create trigger price_trigger 
+    ->     ->      after update on product
+    ->     ->     for each row
+    ->     ->      begin
+    ->     ->      insert into productprice_history(id,name,supplier_name,unit_prize) values( id,name,supplier_name,unit_prize);
+    ->     ->     end
+    ->     ->     //
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '>  create trigger price_trigger 
+    ->      after update on product
+    ->     ' at line 1
+mysql> delimiter //
+mysql> create trigger price_trigger 
+    ->          after update on product
+    ->         for each row
+    ->         begin
+    ->           insert into productprice_history(id,name,supplier_name,unit_prize) values( id,name,supplier_name,unit_prize);
+    ->          end
+    ->         //
+ERROR 1359 (HY000): Trigger already exists
+mysql> delimiter //
+mysql> create trigger price
+    ->          after update on product
+    ->         for each row
+    ->         begin
+    ->           insert into productprice_history(id,name,supplier_name,unit_prize) values( id,name,supplier_name,unit_prize);
+    ->          end
+    ->         //
+Query OK, 0 rows affected (0.17 sec)
+
+mysql> update product set unit_prize='450' where id='1';
+    -> //
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from product;
+    -> //
++------+------+---------------+------------+
+| id   | name | supplier_name | unit_prize |
++------+------+---------------+------------+
+|    1 | XYZ  | ABC           |        450 |
++------+------+---------------+------------+
+1 row in set (0.00 sec)
+
+mysql> select * from productprice_history;
+    -> //
++------+------+---------------+------------+
+| id   | name | supplier_name | unit_prize |
++------+------+---------------+------------+
+|    1 | XYZ  | ABC           |        250 |
+|    1 | XYZ  | ABC           |        350 |
+| NULL | NULL | NULL          |       NULL |
++------+------+---------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> create table productprice_history2(id int,name varchar(30),supplier_name varchar(30),unit_prize int);
+create table productprice_history2(id int,name varchar(30),supplier_name varchar(30),unit_prize int);
+^C
+mysql> reate table productprice_history2(id int,name varchar(30),supplier_name varchar(30),unit_prize int);
+    -> //
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'reate table productprice_history2(id int,name varchar(30),supplier_name varchar(' at line 1
+mysql> create table productprice_history2(id int,name varchar(30),supplier_name varchar(30),unit_prize int);
+    -> //
+Query OK, 0 rows affected (0.44 sec)
+
+mysql> delimiter //
+mysql> create trigger price
+    ->          after update on product
+    ->         for each row
+    ->         begin
+    ->           insert into productprice_history2(id,name,supplier_name,unit_prize) values( id,name,supplier_name,unit_prize);
+    ->          end
+    ->         //
+ERROR 1359 (HY000): Trigger already exists
+mysql> delimiter //
+mysql> create trigger history
+    ->          after update on product
+    ->         for each row
+    ->         begin
+    ->           insert into productprice_history2(id,name,supplier_name,unit_prize) values( id,name,supplier_name,unit_prize);
+    ->          end
+    ->         //
+Query OK, 0 rows affected (0.15 sec)
+
+mysql> create table productprice_history2(id int,name varchar(30),supplier_name varchar(30),unit_prize int);
+    -> //
+ERROR 1050 (42S01): Table 'productprice_history2' already exists
+mysql> update product set unit_prize='150' where id='1';
+    -> //
+Query OK, 1 row affected (0.19 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from product;
+    -> //
++------+------+---------------+------------+
+| id   | name | supplier_name | unit_prize |
++------+------+---------------+------------+
+|    1 | XYZ  | ABC           |        150 |
++------+------+---------------+------------+
+1 row in set (0.00 sec)
+
+mysql> select * from productprice_history2;
+    -> //
++------+------+---------------+------------+
+| id   | name | supplier_name | unit_prize |
++------+------+---------------+------------+
+| NULL | NULL | NULL          |       NULL |
++------+------+---------------+------------+
+1 row in set (0.00 sec)
+
+mysql> delimiter //
+mysql> create trigger pro
+    ->          after update on product
+    ->         for each row
+    ->         begin
+    ->           insert into productprice_history2(id,name,supplier_name,unit_prize) values( new.id,new.name,new.supplier_name,new.unit_prize);
+    ->          end
+    ->         //
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> create table productprice_history2(id int,name varchar(30),supplier_name varchar(30),unit_prize int);
+    -> //
+ERROR 1050 (42S01): Table 'productprice_history2' already exists
+mysql> update product set unit_prize='250' where id='1';
+    -> //
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from product;
+    -> //
++------+------+---------------+------------+
+| id   | name | supplier_name | unit_prize |
++------+------+---------------+------------+
+|    1 | XYZ  | ABC           |        250 |
++------+------+---------------+------------+
+1 row in set (0.00 sec)
+
+mysql> select * from productprice_history2;
+    -> //
++------+------+---------------+------------+
+| id   | name | supplier_name | unit_prize |
++------+------+---------------+------------+
+| NULL | NULL | NULL          |       NULL |
+| NULL | NULL | NULL          |       NULL |
+|    1 | XYZ  | ABC           |        250 |
++------+------+---------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> create table productprice_history3(id int,name varchar(30),supplier_name varchar(30),unit_prize int);
+    -> //
+Query OK, 0 rows affected (0.46 sec)
+
+mysql> delimiter //
+mysql> create trigger pr
+    ->          after update on product
+    ->         for each row
+    ->         begin
+    ->           insert into productprice_history2 values( new.id,new.name,new.supplier_name,new.unit_prize);
+    ->          end
+    ->         //
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> update product set unit_prize='450' where id='1';
+    -> //
+Query OK, 1 row affected (0.11 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from product;
+    -> //
++------+------+---------------+------------+
+| id   | name | supplier_name | unit_prize |
++------+------+---------------+------------+
+|    1 | XYZ  | ABC           |        450 |
++------+------+---------------+------------+
+1 row in set (0.00 sec)
+
+mysql> select * from productprice_history2;
+    -> //
++------+------+---------------+------------+
+| id   | name | supplier_name | unit_prize |
++------+------+---------------+------------+
+| NULL | NULL | NULL          |       NULL |
+| NULL | NULL | NULL          |       NULL |
+|    1 | XYZ  | ABC           |        250 |
+| NULL | NULL | NULL          |       NULL |
+|    1 | XYZ  | ABC           |        450 |
+|    1 | XYZ  | ABC           |        450 |
++------+------+---------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> 
+
+

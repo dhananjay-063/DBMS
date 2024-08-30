@@ -1,0 +1,73 @@
+student@student-Veriton-M200-H61:~$ sudo mysql -u root -p
+[sudo] password for student: 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.36-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use s63;
+Database changed
+mysql> show tables;
+Empty set (0.00 sec)
+Query OK, 0 rows affected (0.55 sec)
+
+mysql> create table student2(rno int,name varchar(30),class varchar(10));
+Query OK, 0 rows affected (0.51 sec)
+
+mysql> insert into student value('1','Ramesh','SYBtech A');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into student value('2','Ram','SYBtech A');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into student value('3','Manish','SYBtech A');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into student value('4','Abhijeet','SYBtech A');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into student value('5','Vivek','SYBtech A');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select * from student;
++------+----------+-----------+
+| rno  | name     | class     |
++------+----------+-----------+
+|    1 | Ramesh   | SYBtech A |
+|    2 | Ram      | SYBtech A |
+|    3 | Manish   | SYBtech A |
+|    4 | Abhijeet | SYBtech A |
+|    5 | Vivek    | SYBtech A |
++------+----------+-----------+
+5 rows in set (0.00 sec)
+mysql> source /home/student/cu.sql
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> call copy();
+    -> //
+Query OK, 0 rows affected (0.44 sec)
+
+mysql> select * from student2;
+    -> //
++------+----------+-----------+
+| rno  | name     | class     |
++------+----------+-----------+
+|    1 | Ramesh   | SYBtech A |
+|    2 | Ram      | SYBtech A |
+|    3 | Manish   | SYBtech A |
+|    4 | Abhijeet | SYBtech A |
+|    5 | Vivek    | SYBtech A |
++------+----------+-----------+
+5 rows in set (0.01 sec)
+
+mysql> 
+
+

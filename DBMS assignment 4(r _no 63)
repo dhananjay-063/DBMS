@@ -1,0 +1,172 @@
+student@student-HP-ProDesk-400-G3-SFF:~$ sudo mysql -u root -p
+[sudo] password for student: 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.36-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database sy63;
+ERROR 1007 (HY000): Can't create database 'sy63'; database exists
+mysql> create database sy063;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> use sy063;
+Database changed
+mysql> create table student(int Rno int,Name varchar(30),division varchar(30));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'int Rno int,Name varchar(30),division varchar(30))' at line 1
+mysql> create table student( Rno int,Name varchar(30),division varchar(30));
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> create table student_course(Rno int,course_id int,course_name varchar(30));
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> insert into student values('1','Tejas','A');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into student values('2','Durgesh','B');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into student values('3','Sumit','C');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student values('4','Vinay','D');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into student_course values('1','101','COA');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into student_course values('2','102','OOP');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into student_course values('3','103','DM');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into student_course values('4','104','DEDC');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from student;
++------+---------+----------+
+| Rno  | Name    | division |
++------+---------+----------+
+|    1 | Tejas   | A        |
+|    2 | Durgesh | B        |
+|    3 | Sumit   | C        |
+|    4 | Vinay   | D        |
++------+---------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from student_values;
+ERROR 1146 (42S02): Table 'sy063.student_values' doesn't exist
+mysql> select * from student_course;
++------+-----------+-------------+
+| Rno  | course_id | course_name |
++------+-----------+-------------+
+|    1 |       101 | COA         |
+|    2 |       102 | OOP         |
+|    3 |       103 | DM          |
+|    4 |       104 | DEDC        |
++------+-----------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select Name,course_id from student inner join student_course where student.Rno=student_course.Rno;
++---------+-----------+
+| Name    | course_id |
++---------+-----------+
+| Tejas   |       101 |
+| Durgesh |       102 |
+| Sumit   |       103 |
+| Vinay   |       104 |
++---------+-----------+
+4 rows in set (0.01 sec)
+
+mysql> select student.Name,student_course.courde_id from student left outer join student_course on student.Rno=student_course.Rno;
+ERROR 1054 (42S22): Unknown column 'student_course.courde_id' in 'field list'
+mysql> select student.Name,student_course.course_id from student left outer join student_course on student.Rno=student_course.Rno;
++---------+-----------+
+| Name    | course_id |
++---------+-----------+
+| Tejas   |       101 |
+| Durgesh |       102 |
+| Sumit   |       103 |
+| Vinay   |       104 |
++---------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> insert into student values('5','Ram','M');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from student;
++------+---------+----------+
+| Rno  | Name    | division |
++------+---------+----------+
+|    1 | Tejas   | A        |
+|    2 | Durgesh | B        |
+|    3 | Sumit   | C        |
+|    4 | Vinay   | D        |
+|    5 | Ram     | M        |
++------+---------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student_course;
++------+-----------+-------------+
+| Rno  | course_id | course_name |
++------+-----------+-------------+
+|    1 |       101 | COA         |
+|    2 |       102 | OOP         |
+|    3 |       103 | DM          |
+|    4 |       104 | DEDC        |
++------+-----------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select student.Name,student_course.course_id from student left outer join student_course on student.Rno=student_course.Rno;
++---------+-----------+
+| Name    | course_id |
++---------+-----------+
+| Tejas   |       101 |
+| Durgesh |       102 |
+| Sumit   |       103 |
+| Vinay   |       104 |
+| Ram     |      NULL |
++---------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select student.Name,student_course.course_id from student right outer join student_course on student.Rno=student_course.Rno;
++---------+-----------+
+| Name    | course_id |
++---------+-----------+
+| Tejas   |       101 |
+| Durgesh |       102 |
+| Sumit   |       103 |
+| Vinay   |       104 |
++---------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select student.Name,student_course.course_id from student left outer join student_course on student.Rno=student_course.Rno union   
+
+^C
+mysql> select student.Name,student_course.course_id from student left outer join student_course on student.Rno=student_course.Rno unionselect student.Name,student_course.course_id from student right outer join student_course on student.Rno=student_course.Rno;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'unionselect student.Name,student_course.course_id from student right outer join ' at line 1
+mysql> select student.Name,student_course.course_id from student left outer join student_course on student.Rno=student_course.Rno union select
+ student.Name,student_course.course_id from student right outer join student_course on student.Rno=student_course.Rno;
++---------+-----------+
+| Name    | course_id |
++---------+-----------+
+| Tejas   |       101 |
+| Durgesh |       102 |
+| Sumit   |       103 |
+| Vinay   |       104 |
+| Ram     |      NULL |
++---------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> 
+
+

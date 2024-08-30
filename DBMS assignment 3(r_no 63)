@@ -1,0 +1,216 @@
+student@student-HP-ProDesk-400-G3-SFF:~$ sudo mysql -u root -p
+[sudo] password for student: 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.36-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database sy63;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> use sy63;
+Database changed
+mysql> create table emp(emp int,ename varchar(30),bdate date,title varchar(30),salary double,dno int);
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> create table proj(pno int,pname varchar(30),budget double,dno int);
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> create table dept(dno int,dname varchar(30),mgreno int);
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> create table workson(eno int,pno int,resp varchar(30),hours int);
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> insert into emp values('1','Ram','2004-11-6','EE','1234','1');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into emp values('2','Sham','2004-1-7','ME','4567','2');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into emp values('3','Radha','2005-1-7','SA','8907','3');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into emp values('4','Sai','2000-1-7','SA','9907','3');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into proj values('11','APP','45612','1');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into proj values('12','Android','75612','3');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into proj values('13','Website','66612','2');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into proj values('14','APP','55858','2');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into dept values('1','CS','112');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into dept values('2','IT','113');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into dept values('3','ECE','114');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into workson values('1','11','Manager','24');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into workson values('2','12','HR','48');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into workson values('3','13','Employee','72');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into workson values('4','14','Developer','108');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from emp;
++------+-------+------------+-------+--------+------+
+| emp  | ename | bdate      | title | salary | dno  |
++------+-------+------------+-------+--------+------+
+|    1 | Ram   | 2004-11-06 | EE    |   1234 |    1 |
+|    1 | Ram   | 2004-01-07 | ME    |   4567 |    2 |
+|    2 | Sham  | 2004-01-07 | ME    |   4567 |    2 |
+|    3 | Radha | 2005-01-07 | SA    |   8907 |    3 |
+|    4 | Sai   | 2000-01-07 | SA    |   9907 |    3 |
++------+-------+------------+-------+--------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from proj;
++------+---------+--------+------+
+| pno  | pname   | budget | dno  |
++------+---------+--------+------+
+|   11 | APP     |  45612 |    1 |
+|   12 | Android |  75612 |    3 |
+|   13 | Website |  66612 |    2 |
+|   14 | APP     |  55858 |    2 |
++------+---------+--------+------+
+4 rows in set (0.00 sec)
+
+mysql> select * from dept;
++------+-------+--------+
+| dno  | dname | mgreno |
++------+-------+--------+
+|    1 | CS    |    112 |
+|    2 | IT    |    113 |
+|    3 | ECE   |    114 |
++------+-------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from workson;
++------+------+-----------+-------+
+| eno  | pno  | resp      | hours |
++------+------+-----------+-------+
+|    1 |   11 | Manager   |    24 |
+|    2 |   12 | HR        |    48 |
+|    3 |   13 | Employee  |    72 |
+|    4 |   14 | Developer |   108 |
++------+------+-----------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select pno,pname from proj where budget>4567;
++------+---------+
+| pno  | pname   |
++------+---------+
+|   11 | APP     |
+|   12 | Android |
+|   13 | Website |
+|   14 | APP     |
++------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select * from workson where hours<72 and resp='Manager';
++------+------+---------+-------+
+| eno  | pno  | resp    | hours |
++------+------+---------+-------+
+|    1 |   11 | Manager |    24 |
++------+------+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> select emp,ename from emp where(title='EE' or title='SA') and salary>4567;
++------+-------+
+| emp  | ename |
++------+-------+
+|    3 | Radha |
+|    4 | Sai   |
++------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from dept order by dname asc;
++------+-------+--------+
+| dno  | dname | mgreno |
++------+-------+--------+
+|    1 | CS    |    112 |
+|    3 | ECE   |    114 |
+|    2 | IT    |    113 |
++------+-------+--------+
+3 rows in set (0.00 sec)
+
+
+mysql> select ename,dname,title from emp,dept where emp.dno=dept.dno;
++-------+-------+-------+
+| ename | dname | title |
++-------+-------+-------+
+| Ram   | CS    | EE    |
+| Sham  | IT    | ME    |
+| Radha | ECE   | SA    |
+| Sai   | ECE   | SA    |
++-------+-------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select pname,hours,proj.pno from workson,proj where hours>72 and proj.pno=workson.pno;
++-------+-------+------+
+| pname | hours | pno  |
++-------+-------+------+
+| APP   |   108 |   14 |
++-------+-------+------+
+1 row in set (0.01 sec)
+
+mysql> select pname,dname,budget from proj,dept where budget<66612 and proj.dno=dept.dno;
++-------+-------+--------+
+| pname | dname | budget |
++-------+-------+--------+
+| APP   | CS    |  45612 |
+| APP   | IT    |  55858 |
++-------+-------+--------+
+2 rows in set (0.00 sec)
+
+
+mysql> select emp, salary from emp,dept where dname='ECE' order by salary desc;
++------+--------+
+| emp  | salary |
++------+--------+
+|    4 |   9907 |
+|    3 |   8907 |
+|    1 |   4567 |
+|    2 |   4567 |
+|    1 |   1234 |
++------+--------+
+5 rows in set (0.00 sec)
+
+
+mysql> select ename,pname,title from emp,proj,workson where emp.dno=workson.eno and proj.pno=workson.pno;
++-------+---------+-------+
+| ename | pname   | title |
++-------+---------+-------+
+| Ram   | APP     | EE    |
+| Sham  | Android | ME    |
+| Radha | Website | SA    |
+| Sai   | APP     | SA    |
++-------+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> 
+
+

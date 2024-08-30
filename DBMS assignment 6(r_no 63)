@@ -1,0 +1,150 @@
+student@student-Veriton-M200-H61:~$ sudo mysql -u root -p
+[sudo] password for student: 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.36-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database sy;
+ERROR 1007 (HY000): Can't create database 'sy'; database exists
+mysql> create database ss;
+Query OK, 1 row affected (0.11 sec)
+
+mysql> use ss;
+Database changed
+mysql> create table library(rollno int primary key,dateofissue date,b_name varchar(30),.status varchar(10));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.status varchar(10))' at line 1
+mysql> create table library(rollno int primary key,dateofissue date,b_name varchar(30),status varchar(10));
+Query OK, 0 rows affected (1.29 sec)
+
+mysql> create table fine(rollno int,dateof return,amount int);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'return,amount int)' at line 1
+mysql> create table fine(rollno int,dateofreturn date,amount int);
+Query OK, 0 rows affected (0.46 sec)
+
+mysql> insert into library values('1','2024-2-20','DBMS','I');
+Query OK, 1 row affected (0.15 sec)
+
+mysql> insert into library values('2','2024-2-25','DBMS','I');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> delete rollno='2' from library;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '='2' from library' at line 1
+mysql> delete from library where rollno='2';
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into library values('2','2024-2-25','ADS','I');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into library values('3','2024-2-27','SE','R');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into library values('4','2024-2-29','OSA','I');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into library values('5','2024-3-1','EM-3','R');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into library values('6','2024-3-2','OOP','R');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into library values('7','2024-3-6','COA','I');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from library;
++--------+-------------+--------+--------+
+| rollno | dateofissue | b_name | status |
++--------+-------------+--------+--------+
+|      1 | 2024-02-20  | DBMS   | I      |
+|      2 | 2024-02-25  | ADS    | I      |
+|      3 | 2024-02-27  | SE     | R      |
+|      4 | 2024-02-29  | OSA    | I      |
+|      5 | 2024-03-01  | EM-3   | R      |
+|      6 | 2024-03-02  | OOP    | R      |
+|      7 | 2024-03-06  | COA    | I      |
++--------+-------------+--------+--------+
+7 rows in set (0.00 sec)
+
+mysql> source /home/student/ls.sql;
+Query OK, 0 rows affected (0.26 sec)
+
+mysql> call calfine(1,'DBMS');
+    -> //
++-------------------------------+
+| concat('fine is ',fineamount) |
++-------------------------------+
+| fine is 200                   |
++-------------------------------+
+1 row in set (0.01 sec)
+
+Query OK, 1 row affected (0.21 sec)
+
+mysql> call calfine(2,'ADS');
+    -> //
++-------------------------------+
+| concat('fine is ',fineamount) |
++-------------------------------+
+| fine is 70                    |
++-------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.32 sec)
+
+mysql> call calfine(3,'SE');
+    -> //
++-------------------------------+
+| concat('fine is ',fineamount) |
++-------------------------------+
+| fine is 60                    |
++-------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> source /home/student/ls.sql;
+ERROR: 
+Failed to open file '/home/student/ls.sql;', error: 2
+mysql> call calfine(3,'SE','R')
+    -> //
+ERROR 1318 (42000): Incorrect number of arguments for PROCEDURE ss.calfine; expected 2, got 3
+mysql> source /home/student/ls.sql;
+ERROR: 
+Failed to open file '/home/student/ls.sql;', error: 2
+mysql> source /home/student/lc.sql;
+ERROR: 
+Failed to open file '/home/student/lc.sql;', error: 2
+mysql> source /home/student/ls.sql
+ERROR 1304 (42000): PROCEDURE calfine already exists
+mysql> call calfine(3,'SE','R');
+    -> //
+ERROR 1318 (42000): Incorrect number of arguments for PROCEDURE ss.calfine; expected 2, got 3
+mysql> source /home/student/lc.sql;
+ERROR: 
+Failed to open file '/home/student/lc.sql;', error: 2
+mysql> source /home/student/lc.sql
+ERROR 1304 (42000): PROCEDURE calfin already exists
+mysql> call calfine(3,'SE','R');
+    -> //
+ERROR 1318 (42000): Incorrect number of arguments for PROCEDURE ss.calfine; expected 2, got 3
+mysql> call calfine(3,'SE');
+    -> //
++-------------------------------+
+| concat('fine is ',fineamount) |
++-------------------------------+
+| fine is 60                    |
++-------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> 
+
+

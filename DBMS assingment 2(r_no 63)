@@ -1,0 +1,213 @@
+sudo mysql -u root -p
+[sudo] password for student: 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.36-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database syA63;
+Query OK, 1 row affected (0.15 sec)
+
+mysql> show database;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| Gaurav             |
+| ass3               |
+| clause             |
+| database_sy63      |
+| db                 |
+| information_schema |
+| mysql              |
+| performance_schema |
+| problem            |
+| sy18               |
+| sy63               |
+| syA63              |
+| sys                |
++--------------------+
+13 rows in set (0.03 sec)
+
+mysql> use syA63;
+Database changed
+mysql> create table employee(Emp_No int,Emp|_Name varchar(30),Emp_Date date,Emp_position varchar(30),Salary float);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '|_Name varchar(30),Emp_Date date,Emp_position varchar(30),Salary float)' at line 1
+mysql> create table employee(Emp_No int,Emp_Name varchar(30),Emp_Date date,Emp_position varchar(30),Salary float);
+Query OK, 0 rows affected (0.66 sec)
+
+mysql> create table te(Emp_No int,Emp_Name varchar(30),Emp_Date date,Emp_positio
+n varchar(30),Salary float);
+Query OK, 0 rows affected (0.99 sec)
+
+mysql> insert into employee values('1','Dipak','2023-12-4','Manager','65000');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into employee values('2','Rahul','2023-12-10','Software Developer','48000');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into employee values('3','Ramdas','2023-12-12','Software Manager','65000');
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into employee values('4','Bhushan','2023-12-12','Software Designer','78000');
+Query OK, 1 row affected (0.14 sec)
+
+mysql> select * from employee
+    -> select * from employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select * from employee' at line 2
+mysql> select * from employee;
++--------+----------+------------+--------------------+--------+
+| Emp_No | Emp_Name | Emp_Date   | Emp_position       | Salary |
++--------+----------+------------+--------------------+--------+
+|      1 | Dipak    | 2023-12-04 | Manager            |  65000 |
+|      2 | Rahul    | 2023-12-10 | Software Developer |  48000 |
+|      3 | Ramdas   | 2023-12-12 | Software Manager   |  65000 |
+|      4 | Bhushan  | 2023-12-12 | Software Designer  |  78000 |
++--------+----------+------------+--------------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> insert into te values('2','Rahul','2023-12-10','Software Developer','48000');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into te values('3','Ramdas','2023-12-12','Software Manager','65000');
+Query OK, 1 row affected (0.15 sec)
+
+mysql> insert into te values('4','Bhushan','2023-12-12','Software Designer','78000');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into te values('5','Vinay','2023-12-12','Software Testor','80000');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select * from te;
++--------+----------+------------+--------------------+--------+
+| Emp_No | Emp_Name | Emp_Date   | Emp_position       | Salary |
++--------+----------+------------+--------------------+--------+
+|      2 | Rahul    | 2023-12-10 | Software Developer |  48000 |
+|      3 | Ramdas   | 2023-12-12 | Software Manager   |  65000 |
+|      4 | Bhushan  | 2023-12-12 | Software Designer  |  78000 |
+|      5 | Vinay    | 2023-12-12 | Software Testor    |  80000 |
++--------+----------+------------+--------------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee union select * from te;
++--------+----------+------------+--------------------+--------+
+| Emp_No | Emp_Name | Emp_Date   | Emp_position       | Salary |
++--------+----------+------------+--------------------+--------+
+|      1 | Dipak    | 2023-12-04 | Manager            |  65000 |
+|      2 | Rahul    | 2023-12-10 | Software Developer |  48000 |
+|      3 | Ramdas   | 2023-12-12 | Software Manager   |  65000 |
+|      4 | Bhushan  | 2023-12-12 | Software Designer  |  78000 |
+|      5 | Vinay    | 2023-12-12 | Software Testor    |  80000 |
++--------+----------+------------+--------------------+--------+
+5 rows in set (0.01 sec)
+
+mysql> select * from employee union all select * from te;
++--------+----------+------------+--------------------+--------+
+| Emp_No | Emp_Name | Emp_Date   | Emp_position       | Salary |
++--------+----------+------------+--------------------+--------+
+|      1 | Dipak    | 2023-12-04 | Manager            |  65000 |
+|      2 | Rahul    | 2023-12-10 | Software Developer |  48000 |
+|      3 | Ramdas   | 2023-12-12 | Software Manager   |  65000 |
+|      4 | Bhushan  | 2023-12-12 | Software Designer  |  78000 |
+|      2 | Rahul    | 2023-12-10 | Software Developer |  48000 |
+|      3 | Ramdas   | 2023-12-12 | Software Manager   |  65000 |
+|      4 | Bhushan  | 2023-12-12 | Software Designer  |  78000 |
+|      5 | Vinay    | 2023-12-12 | Software Testor    |  80000 |
++--------+----------+------------+--------------------+--------+
+8 rows in set (0.00 sec)
+
+mysql> select distinct Emp_Name from employee where Emp_Name in (select Emp_Name from te);
++----------+
+| Emp_Name |
++----------+
+| Rahul    |
+| Ramdas   |
+| Bhushan  |
++----------+
+3 rows in set (0.02 sec)
+
+mysql> select min(Emp_Salary)from employee;
+ERROR 1054 (42S22): Unknown column 'Emp_Salary' in 'field list'
+mysql> select min(Salary)from employee;
++-------------+
+| min(Salary) |
++-------------+
+|       48000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select max(Salary)from te;
++-------------+
+| max(Salary) |
++-------------+
+|       80000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(Salary)from employee;
++-------------+
+| avg(Salary) |
++-------------+
+|       64000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(Salary)from employee;
++-------------+
+| sum(Salary) |
++-------------+
+|      256000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select count(Salary)from te;
++---------------+
+| count(Salary) |
++---------------+
+|             4 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select lcase(Emp_Name)from employee;
++-----------------+
+| lcase(Emp_Name) |
++-----------------+
+| dipak           |
+| rahul           |
+| ramdas          |
+| bhushan         |
++-----------------+
+4 rows in set (0.00 sec)
+
+mysql> select ucase(Emp_Name)from employee;
++-----------------+
+| ucase(Emp_Name) |
++-----------------+
+| DIPAK           |
+| RAHUL           |
+| RAMDAS          |
+| BHUSHAN         |
++-----------------+
+4 rows in set (0.00 sec)
+
+mysql> select mid(Emp_Name,2,3)from employee;
++-------------------+
+| mid(Emp_Name,2,3) |
++-------------------+
+| ipa               |
+| ahu               |
+| amd               |
+| hus               |
++-------------------+
+4 rows in set (0.00 sec)
+
+mysql> 
